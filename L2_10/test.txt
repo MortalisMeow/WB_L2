@@ -1,0 +1,4 @@
+ccc	300	xyz
+aaa	100	def
+bbb	200	abc
+aaa	100	def
