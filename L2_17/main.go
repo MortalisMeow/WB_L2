@@ -61,7 +61,7 @@ func main() {
 		close(done)
 	}()
 
-	// Горутина для чтения из сокета и вывода в STDOUT
+	// Горутина для чтения из сокета и вывода в stdout
 	go func() {
 		reader := bufio.NewReader(conn)
 		writer := bufio.NewWriter(os.Stdout)
@@ -71,7 +71,6 @@ func main() {
 			line, err := reader.ReadBytes('\n')
 			if err != nil {
 				if err == io.EOF {
-					// Сервер закрыл соединение
 					fmt.Fprintf(os.Stderr, "\nConnection closed by server\n")
 				} else {
 					fmt.Fprintf(os.Stderr, "\nRead error: %v\n", err)
@@ -91,17 +90,17 @@ func main() {
 		}
 	}()
 
-	// Горутина для чтения из STDIN и отправки в сокет
+	// Горутина для чтения из stdin и отправки в сокет
 	go func() {
 		reader := bufio.NewReader(os.Stdin)
 		writer := bufio.NewWriter(conn)
 
 		for {
-			// Читаем строку из STDIN
+			// Читаем строку из stdin
 			line, err := reader.ReadBytes('\n')
 			if err != nil {
 				if err == io.EOF {
-					// Ctrl+D - пользователь хочет завершить соединение
+					// Ctrl+D
 					fmt.Fprintf(os.Stderr, "\nClosing connection...\n")
 				} else {
 					fmt.Fprintf(os.Stderr, "\nRead from stdin error: %v\n", err)
